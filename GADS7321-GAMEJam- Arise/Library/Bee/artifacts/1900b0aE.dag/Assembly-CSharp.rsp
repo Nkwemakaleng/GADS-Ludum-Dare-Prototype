@@ -353,6 +353,7 @@
 -analyzer:"X:/Unity/2022.3.15f1/2022.3.20f1/Editor/Data/Tools/Unity.SourceGenerators/Unity.Properties.SourceGenerator.dll"
 -analyzer:"X:/Unity/2022.3.15f1/2022.3.20f1/Editor/Data/Tools/Unity.SourceGenerators/Unity.SourceGenerators.dll"
 "Assets/Scenes/Stuart/Scripts/DemonManager.cs"
+"Assets/Scenes/Stuart/Scripts/GroundCheck.cs"
 "Assets/Scenes/Stuart/Scripts/StrengthDemon.cs"
 -langversion:9.0
 

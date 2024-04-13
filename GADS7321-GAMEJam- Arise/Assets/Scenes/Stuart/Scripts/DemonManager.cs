@@ -6,8 +6,17 @@ public class DemonManager : MonoBehaviour
 {
     //PLAYER MOVEMENT VARIABLES
     public float moveSpeed = 5F;
-    public float jumpForce = 100F;
+    public float jumpForce = 7F;
     public bool isGrounded;
+    private bool isJumping = false;
+
+    //COYOTE TIMER
+    private float coyoteTime = 0.1F;
+    private float coyoteTimeCounter;
+
+    //JUMP BUFFER
+    private float jumpBuffTime = 0.2F;
+    private float jumpBuffTimeCounter;
 
     //OBJECT VARIABLES
     [SerializeField] GameObject[] demons;   
@@ -51,8 +60,7 @@ public class DemonManager : MonoBehaviour
         //GOING LEFT
         if (Input.GetKeyDown("1"))
         {
-            Debug.Log("Left Pressed");
-
+            //Debug.Log("Left Pressed");
             if (demonIndex - 1 < 0)
             {
                 demonIndex = demons.Length - 1;
@@ -92,33 +100,72 @@ public class DemonManager : MonoBehaviour
             deleteDemon();
         }
 
-        //JUMPING
-        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W)) && isGrounded)
+        //PLAYER MOVEMENT
+        //COYOTE JUMP
+        if (isGrounded)
         {
+            coyoteTimeCounter = coyoteTime;
+        }
+        else {
+            coyoteTimeCounter -= Time.deltaTime;
+        }
+
+        //JUMP BUFFER
+        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W)))
+        {
+            jumpBuffTimeCounter = jumpBuffTime;
+        }
+        else {
+            jumpBuffTimeCounter -= Time.deltaTime;
+        }
+
+        if ((Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.W)) && playerRB.velocity.y > 0F)
+        {
+            coyoteTimeCounter = 0F;
+        }
+            //MOVMENT
             if (!activeController)
             {
-                if (playerRB != null)
+            playerRB.velocity = new Vector3(moveInput * moveSpeed, playerRB.velocity.y, 0);   
+            }  
+    }
+    private void FixedUpdate()
+    {
+        //JUMPING
+        if ((jumpBuffTimeCounter > 0F && coyoteTimeCounter > 0F) && !isJumping)
+        {
+            if (!activeController && playerRB != null)
+            {
+                if (!isJumping)
                 {
                     playerRB.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-                    isGrounded = false;
-                }
+                    isJumping = true;
+                    Invoke("ResetJump", 1);
+                }       
             }
-            
+            jumpBuffTimeCounter = 0F;
         }
-        if (!activeController)
-        {
-            //PLAYER CONTROLS - OTHER SCRIPT SHOULD HANDLE THIS
-            playerRB.velocity = new Vector3(moveInput * moveSpeed, playerRB.velocity.y, 0);   
-        }  
     }
 
     //COLLISIONS
-    void OnCollisionEnter(Collision collision)
+    void OnCollisionStay(Collision collision)
     {
         if (collision.gameObject.CompareTag("Ground"))
         {
             isGrounded = true;
         }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isGrounded = false;
+        }
+    }
+
+    private void ResetJump() {
+        isJumping = false;
     }
 
     //INSTANTIATES DEMON IN FRONT OF PLAYER
