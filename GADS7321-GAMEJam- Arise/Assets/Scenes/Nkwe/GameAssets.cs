@@ -15,6 +15,7 @@ public class GameAssets : MonoBehaviour
   }
   
  }
+ // Expose a List of AudioClips in the Unity inspector
  public List<AudioList> soundclips;
  [System.Serializable]
 public class AudioList

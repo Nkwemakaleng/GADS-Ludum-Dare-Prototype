@@ -28,10 +28,10 @@ public class SFXManager : MonoBehaviour
     private AudioSource audioSource;
 
     // HashMap to store AudioClips
-    private Dictionary<string, AudioClip> soundMap = new Dictionary<string, AudioClip>();
+    private Dictionary<Sound, AudioClip> soundMap = new Dictionary<Sound, AudioClip>();
 
     // Expose a List of AudioClips in the Unity inspector
-    public List<AudioClip> soundClips ;
+   // public List<AudioClip> soundClips ;
 
     // Static reference to the SFXManager instance
     public static SFXManager Instance
@@ -63,10 +63,10 @@ public class SFXManager : MonoBehaviour
             // Get the AudioSource component
             audioSource = gameObject.GetComponent<AudioSource>();
 
-            // Populate the soundMap using the provided soundClips List
-            foreach (AudioClip clip in soundClips)
+            // Populate the soundMap using the provided soundClips List in game assets 
+            foreach (GameAssets.AudioList soundClip in GameAssets.i.soundclips)
             {
-                soundMap.Add(clip.name, clip);
+                soundMap.Add(soundClip.sound, soundClip.audioclip);
             }
         }
         else

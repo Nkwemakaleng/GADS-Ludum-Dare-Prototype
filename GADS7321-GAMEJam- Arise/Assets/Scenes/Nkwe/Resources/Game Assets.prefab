@@ -47,3 +47,5 @@ MonoBehaviour:
   soundclips:
   - sound: 0
     audioclip: {fileID: 0}
+  - sound: 0
+    audioclip: {fileID: 0}
