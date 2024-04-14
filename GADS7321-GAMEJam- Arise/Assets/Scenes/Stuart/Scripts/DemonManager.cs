@@ -195,6 +195,22 @@ public class DemonManager : MonoBehaviour
             Debug.Log("You died bruh");
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
+
+        //NEEDED IN SINGLETON
+        if (collision.gameObject.CompareTag("Exit"))
+        {
+            Debug.Log("You beat the level, now you get to do it again");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        } 
+    }
+
+    //NEEDED IN SINGLETON
+    private void OnTriggerEnter(UnityEngine.Collider collision)
+    {
+        if (collision.gameObject.CompareTag("Campfire"))
+        {
+            Debug.Log("You've saved");
+        }
     }
 
     private void OnCollisionExit(Collision collision)

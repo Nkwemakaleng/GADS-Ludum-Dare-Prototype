@@ -13,6 +13,8 @@ TagManager:
   - Switch
   - Door
   - Hazard
+  - Campfire
+  - Exit
   layers:
   - Default
   - TransparentFX

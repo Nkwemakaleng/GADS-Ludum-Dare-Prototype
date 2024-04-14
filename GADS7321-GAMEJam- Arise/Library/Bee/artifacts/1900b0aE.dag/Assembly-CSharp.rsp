@@ -354,6 +354,7 @@
 -analyzer:"X:/Unity/2022.3.15f1/2022.3.20f1/Editor/Data/Tools/Unity.SourceGenerators/Unity.SourceGenerators.dll"
 "Assets/Scenes/Stuart/Scripts/DemonManager.cs"
 "Assets/Scenes/Stuart/Scripts/MidgetDemon.cs"
+"Assets/Scenes/Stuart/Scripts/PlayerManager.cs"
 "Assets/Scenes/Stuart/Scripts/StrengthDemon.cs"
 "Assets/Scenes/Stuart/Scripts/Switch System/Activation.cs"
 "Assets/Scenes/Stuart/Scripts/Switch System/Switch.cs"

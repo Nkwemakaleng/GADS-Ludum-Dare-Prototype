@@ -11,7 +11,6 @@ public class Switch : MonoBehaviour
     [SerializeField] Material activeMat;
     private GameObject demon;
 
-    // Update is called once per frame
     void Update()
     {
         if (isActive)
