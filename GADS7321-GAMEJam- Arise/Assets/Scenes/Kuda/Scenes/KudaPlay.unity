@@ -434,7 +434,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 300032689}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 769353209}
+        m_TargetAssemblyTypeName: SceneScript, Assembly-CSharp
+        m_MethodName: QuitGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &300032689
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1314,6 +1326,7 @@ GameObject:
   - component: {fileID: 769353208}
   - component: {fileID: 769353207}
   - component: {fileID: 769353206}
+  - component: {fileID: 769353210}
   - component: {fileID: 769353209}
   m_Layer: 0
   m_Name: EventSystem
@@ -1381,12 +1394,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 769353205}
   m_Enabled: 1
   m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7066920dc634c334388c39c882582757, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &769353210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 769353205}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c9c0757bcc7d0f247a127c7056c3e9a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  brightnessSlider: {fileID: 0}
-  brightness: {fileID: 0}
-  layer: {fileID: 0}
   pausePanel: {fileID: 1416056429}
   settingsPanel: {fileID: 2043720066}
   deathPanel: {fileID: 272439899}
@@ -1522,7 +1544,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Start '
+  m_text: 'Restart '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1796,7 +1818,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 769353209}
-        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_TargetAssemblyTypeName: SceneScript, Assembly-CSharp
         m_MethodName: QuitGame
         m_Mode: 1
         m_Arguments:
@@ -2159,7 +2181,7 @@ GameObject:
   m_Component:
   - component: {fileID: 951925492}
   - component: {fileID: 951925491}
-  - component: {fileID: 951925490}
+  - component: {fileID: 951925493}
   m_Layer: 3
   m_Name: Brightness
   m_TagString: Untagged
@@ -2167,24 +2189,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &951925490
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 951925489}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9c0757bcc7d0f247a127c7056c3e9a1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  brightnessSlider: {fileID: 1816425202}
-  brightness: {fileID: 11400000, guid: f0ebf1a73d266b44199b8e64723cd5ba, type: 2}
-  layer: {fileID: 1591341710}
-  pausePanel: {fileID: 0}
-  settingsPanel: {fileID: 0}
-  deathPanel: {fileID: 0}
 --- !u!114 &951925491
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2221,6 +2225,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &951925493
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 951925489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17c6763cad4b745429e951059d23039a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  brightnessSlider: {fileID: 1816425202}
+  brightness: {fileID: 11400000, guid: f0ebf1a73d266b44199b8e64723cd5ba, type: 2}
+  layer: {fileID: 1591341710}
 --- !u!1 &1026461492
 GameObject:
   m_ObjectHideFlags: 0
@@ -2341,7 +2360,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1049297910}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 769353209}
+        m_TargetAssemblyTypeName: SceneScript, Assembly-CSharp
+        m_MethodName: MainMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1049297910
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2527,7 +2558,7 @@ GameObject:
   - component: {fileID: 1210292624}
   - component: {fileID: 1210292623}
   m_Layer: 5
-  m_Name: ResumeButton
+  m_Name: RestartButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2596,7 +2627,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1210292624}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 769353209}
+        m_TargetAssemblyTypeName: SceneScript, Assembly-CSharp
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1210292624
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2717,7 +2760,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1230344265}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 769353210}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: GameSettings
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1230344265
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2973,9 +3028,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 769353209}
+      - m_Target: {fileID: 769353210}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: GameSettings
+        m_MethodName: GameSettingsOn
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3290,9 +3345,21 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 769353209}
+      - m_Target: {fileID: 769353210}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
         m_MethodName: GamePaused
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 769353210}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: GameResume
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3488,8 +3555,8 @@ MonoBehaviour:
       colorBlindnessType: 0
       colorBlindnessStrength: 1
   m_Resources: {fileID: 11400000, guid: d82512f9c8e5d4a4d938b575d47f88d4, type: 2}
-  m_ShowToolkit: 0
-  m_ShowCustomSorter: 0
+  m_ShowToolkit: 1
+  m_ShowCustomSorter: 1
   breakBeforeColorGrading: 0
   m_BeforeTransparentBundles: []
   m_BeforeStackBundles: []
@@ -4433,14 +4500,14 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1697106040}
   m_Direction: 0
   m_MinValue: 0.1
-  m_MaxValue: 5
+  m_MaxValue: 2
   m_WholeNumbers: 0
-  m_Value: 0.5
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 951925490}
-        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+      - m_Target: {fileID: 951925493}
+        m_TargetAssemblyTypeName: BrightrnessControl, Assembly-CSharp
         m_MethodName: AdjustBrightness
         m_Mode: 0
         m_Arguments:
@@ -4610,7 +4677,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 769353209}
-        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_TargetAssemblyTypeName: SceneScript, Assembly-CSharp
         m_MethodName: MainMenu
         m_Mode: 1
         m_Arguments:
