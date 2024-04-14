@@ -1,14 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class DemonManager : MonoBehaviour
 {
+    //CAMERA
+    [SerializeField] Camera cam;
+    Vector3 camPos;
+
     //PLAYER MOVEMENT VARIABLES
-    public float moveSpeed = 5F;
-    public float jumpForce = 7F;
-    public bool isGrounded;
+    private float moveSpeed = 5F;
+    private float jumpForce = 10F;
+    private bool isGrounded;
     private bool isJumping = false;
+    private float fallMultiplier = 2.0F;
 
     //COYOTE TIMER
     private float coyoteTime = 0.1F;
@@ -31,16 +37,30 @@ public class DemonManager : MonoBehaviour
     public int demonIndex = 0;     //Which demon is being summoned
     public bool demonActive = false;       //Whether demon is summoned or not
     private bool isSpawned = false;        //Checks whether demon has been spawned
-    public bool activeController = false;  //Controls whether player or demon is being controlled (false - player, true - demon)
+    public bool activeController = true;  //Controls whether player or demon is being controlled (false - player, true - demon)
 
     void Awake()
     {
         playerRB = GetComponent<Rigidbody>();      //PLAYER MODEL MUST BE 1st CHILD
+        camPos = cam.transform.position;
     }
 
     //DEMON + PLAYER CONTROL
     void Update()
     {
+
+        //CAMERA 
+        if (isSpawned && activeController)
+        {
+            cam.transform.parent = activeDemon.transform;
+            cam.transform.localPosition = camPos;
+            
+        }
+        else {
+            cam.transform.parent = this.transform;
+            cam.transform.localPosition = camPos;
+        }
+
         float moveInput = Input.GetAxisRaw("Horizontal");
 
         //Debug.Log(playerRB.velocity);
@@ -48,12 +68,14 @@ public class DemonManager : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             demonActive = !demonActive;
+            moveInput = 0;
         }
 
         //TOGGLES BETWEEN CONTROLLING DEMON AND PLAYER
         if (Input.GetMouseButtonDown(1))
         {
             activeController = !activeController;
+            moveInput = 0;
         }
 
         //CHANGES WHICH DEMON IS SELECTED - CHANGE TO WORK WITH ARRAY
@@ -74,7 +96,7 @@ public class DemonManager : MonoBehaviour
         //GOING RIGHT
         if (Input.GetKeyDown("2"))
         {
-            Debug.Log("Right Pressed");
+            //Debug.Log("Right Pressed");
 
             if (demonIndex + 1 > demons.Length - 1)
             {
@@ -131,6 +153,8 @@ public class DemonManager : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        playerRB.AddForce(Physics.gravity);
+
         //JUMPING
         if ((jumpBuffTimeCounter > 0F && coyoteTimeCounter > 0F) && !isJumping)
         {
@@ -140,17 +164,23 @@ public class DemonManager : MonoBehaviour
                 {
                     playerRB.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
                     isJumping = true;
-                    Invoke("ResetJump", 1);
+                    Invoke("ResetJump", 0.4F);
                 }       
             }
             jumpBuffTimeCounter = 0F;
+        }
+
+        //FALLING
+        if (playerRB.velocity.y < 0F)
+        {
+            playerRB.velocity += Vector3.up * Physics.gravity.y * fallMultiplier * Time.deltaTime;
         }
     }
 
     //COLLISIONS
     void OnCollisionStay(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Ground"))
+        if (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("Heavy_Lift") || collision.gameObject.CompareTag("Heavy_Push"))
         {
             isGrounded = true;
         }
@@ -158,7 +188,7 @@ public class DemonManager : MonoBehaviour
 
     private void OnCollisionExit(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Ground"))
+        if (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("Heavy_Lift") || collision.gameObject.CompareTag("Heavy_Push"))
         {
             isGrounded = false;
         }
@@ -170,14 +200,14 @@ public class DemonManager : MonoBehaviour
 
     //INSTANTIATES DEMON IN FRONT OF PLAYER
     public void spawnDemon() {
-        activeDemon = Instantiate(demons[demonIndex], new Vector3(transform.position.x + 3F, 0F, 0F), Quaternion.identity);
+        activeDemon = Instantiate(demons[demonIndex], new Vector3(transform.position.x + 1F, transform.position.y, 0F), Quaternion.identity);
     }
 
     //DELETES DEMON + REVERTS CONTROL VARIABLES
     public void deleteDemon() {
-        Destroy(activeDemon);
+        cam.transform.parent = this.transform;
         activeController = false;
         isSpawned = false;
-       
+        Destroy(activeDemon);
     }
 }

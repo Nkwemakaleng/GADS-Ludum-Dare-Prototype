@@ -4,8 +4,10 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Demon
   - Ground
+  - Heavy_Lift
+  - HeavyDemon
+  - Heavy_Push
   layers:
   - Default
   - TransparentFX
@@ -15,7 +17,7 @@ TagManager:
   - UI
   - Player
   - Ground
-  - 
+  - Demon
   - 
   - 
   - 
