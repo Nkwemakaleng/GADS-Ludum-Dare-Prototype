@@ -8,6 +8,11 @@ TagManager:
   - Heavy_Lift
   - HeavyDemon
   - Heavy_Push
+  - Demon
+  - Wall
+  - Switch
+  - Door
+  - Hazard
   layers:
   - Default
   - TransparentFX

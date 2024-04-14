@@ -21,6 +21,7 @@ public class StrengthDemon : MonoBehaviour
     private Vector3 oldPlatformPos;
     private bool platStored = false;
     private GameObject currentPlatform;
+    private GameObject currentRock;
     public bool pickupInteractState = false;
 
     //COYOTE TIMER
@@ -49,9 +50,9 @@ public class StrengthDemon : MonoBehaviour
         }
 
         //DEMON MOVEMENT
-        if (dm.activeController) 
+        float moveInput = Input.GetAxisRaw("Horizontal");
+        if (dm.activeController)
         {
-            float moveInput = Input.GetAxisRaw("Horizontal");
             demonRB.velocity = new Vector3(moveInput * moveSpeed, demonRB.velocity.y, 0);
 
             //PLAYER MOVEMENT
@@ -79,7 +80,10 @@ public class StrengthDemon : MonoBehaviour
             {
                 coyoteTimeCounter = 0F;
             }
-        }        
+        }
+        else {
+            demonRB.velocity = Vector3.zero;
+        }
     }
 
     private void FixedUpdate()
@@ -130,6 +134,10 @@ public class StrengthDemon : MonoBehaviour
 
     void OnDestroy()
     {
+        if (currentRock != null) {
+            currentRock.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+        }
+
         if (currentPlatform != null)
         {
             currentPlatform.transform.position = oldPlatformPos;
@@ -156,7 +164,7 @@ public class StrengthDemon : MonoBehaviour
         if (collision.gameObject.CompareTag("Heavy_Push"))
         {
             collision.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionY;
-
+            currentRock = collision.gameObject;
             isGrounded = true;
         }
     }
@@ -193,6 +201,7 @@ public class StrengthDemon : MonoBehaviour
         if (collision.gameObject.CompareTag("Heavy_Push"))
         {
             collision.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+            currentRock = null;
             isGrounded = false;
         }
     }

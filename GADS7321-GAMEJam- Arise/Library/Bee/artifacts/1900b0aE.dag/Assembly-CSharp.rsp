@@ -355,6 +355,8 @@
 "Assets/Scenes/Stuart/Scripts/DemonManager.cs"
 "Assets/Scenes/Stuart/Scripts/MidgetDemon.cs"
 "Assets/Scenes/Stuart/Scripts/StrengthDemon.cs"
+"Assets/Scenes/Stuart/Scripts/Switch System/Activation.cs"
+"Assets/Scenes/Stuart/Scripts/Switch System/Switch.cs"
 "Assets/TextMesh Pro/Examples & Extras/Scripts/Benchmark01.cs"
 "Assets/TextMesh Pro/Examples & Extras/Scripts/Benchmark01_UGUI.cs"
 "Assets/TextMesh Pro/Examples & Extras/Scripts/Benchmark02.cs"

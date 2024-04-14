@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DemonManager : MonoBehaviour
 {
@@ -48,8 +49,7 @@ public class DemonManager : MonoBehaviour
     //DEMON + PLAYER CONTROL
     void Update()
     {
-
-        //CAMERA 
+        //CAMERA CONTROL
         if (isSpawned && activeController)
         {
             cam.transform.parent = activeDemon.transform;
@@ -145,11 +145,15 @@ public class DemonManager : MonoBehaviour
         {
             coyoteTimeCounter = 0F;
         }
-            //MOVMENT
-            if (!activeController)
-            {
-            playerRB.velocity = new Vector3(moveInput * moveSpeed, playerRB.velocity.y, 0);   
-            }  
+
+        //MOVMENT
+        if (!activeController)
+        {
+            playerRB.velocity = new Vector3(moveInput * moveSpeed, playerRB.velocity.y, 0);
+        }
+        else {
+            playerRB.velocity = Vector3.zero;
+        }
     }
     private void FixedUpdate()
     {
@@ -164,7 +168,7 @@ public class DemonManager : MonoBehaviour
                 {
                     playerRB.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
                     isJumping = true;
-                    Invoke("ResetJump", 0.4F);
+                    Invoke("ResetJump", 0.3F);
                 }       
             }
             jumpBuffTimeCounter = 0F;
@@ -183,6 +187,13 @@ public class DemonManager : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("Heavy_Lift") || collision.gameObject.CompareTag("Heavy_Push"))
         {
             isGrounded = true;
+        }
+
+        //RESETS SCENE IF HIT HAZARD
+        if (collision.gameObject.CompareTag("Hazard"))
+        {
+            Debug.Log("You died bruh");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 
