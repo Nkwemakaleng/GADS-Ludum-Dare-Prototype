@@ -1,26 +1,37 @@
 // SFXManager.cs
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
 public class SFXManager : MonoBehaviour
 {
+    public enum Sound
+    {
+        PlayerMove, 
+        PlayerHit, 
+        PlayerJump,
+        PlayerIdle,
+        Helper1Move,
+        Helper1Ability,
+        Helper2Move,
+        Helper2Ability,
+        
+    }
     // Singleton instance
     private static SFXManager instance;
 
     // AudioSource component
     private AudioSource audioSource;
 
-    //private float duration = 5f;
-    //Float to control the audio volume 
-    private float overallVolume = 1f;
-
     // HashMap to store AudioClips
     private Dictionary<string, AudioClip> soundMap = new Dictionary<string, AudioClip>();
 
     // Expose a List of AudioClips in the Unity inspector
-    public List<AudioClip> soundClips;
+    public List<AudioClip> soundClips ;
 
     // Static reference to the SFXManager instance
     public static SFXManager Instance
@@ -70,7 +81,7 @@ public class SFXManager : MonoBehaviour
     {
         if (soundMap.ContainsKey(soundName))
         {
-            audioSource.PlayOneShot(soundMap[soundName], overallVolume);
+            audioSource.PlayOneShot(soundMap[soundName]);
             audioSource.loop = loop;// allows sounds to loop 
         }
         else
@@ -78,11 +89,6 @@ public class SFXManager : MonoBehaviour
             Debug.LogWarning("Sound not found: " + soundName);
         }
     }
-    public void SetOverallVolume(float volume)
-    {
-        overallVolume = Mathf.Clamp01(volume);
-    }
-
     public void StopSound()
     {
         audioSource.Stop();
