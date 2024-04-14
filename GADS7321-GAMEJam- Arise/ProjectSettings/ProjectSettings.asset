@@ -689,8 +689,8 @@ PlayerSettings:
   apiCompatibilityLevelPerPlatform: {}
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
-  metroPackageName: GADS7321-GAMEJam- Arise
-  metroPackageVersion: 
+  metroPackageName: GADS7321-GAMEJam-Arise
+  metroPackageVersion: 1.0.0.0
   metroCertificatePath: 
   metroCertificatePassword: 
   metroCertificateSubject: 
@@ -698,7 +698,7 @@ PlayerSettings:
   metroCertificateNotAfter: 0000000000000000
   metroApplicationDescription: GADS7321-GAMEJam- Arise
   wsaImages: {}
-  metroTileShortName: 
+  metroTileShortName: GADS7321-GAMEJam- Arise
   metroTileShowName: 0
   metroMediumTileShowName: 0
   metroLargeTileShowName: 0
