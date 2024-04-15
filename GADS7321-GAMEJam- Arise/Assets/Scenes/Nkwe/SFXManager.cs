@@ -4,7 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 
 
 public class SFXManager : MonoBehaviour
@@ -34,8 +34,14 @@ public class SFXManager : MonoBehaviour
 
     public static Dictionary<Sound, float> SoundTimer;
 
-    // Expose a List of AudioClips in the Unity inspector
-   // public List<AudioClip> soundClips ;
+    public static void Initialize()
+    {
+        SoundTimer = new Dictionary<Sound, float>();
+        SoundTimer[Sound.PlayerMove] = 0f;
+        SoundTimer[Sound.Helper1Move] = 0f;
+        SoundTimer[Sound.Helper2Move] = 0f;
+        
+    }
 
     // Static reference to the SFXManager instance
     public static SFXManager Instance
@@ -105,27 +111,50 @@ public class SFXManager : MonoBehaviour
           default:
               return true;
           case Sound.PlayerMove:
-              if (SoundTimer.ContainsKey(Sound.PlayerMove))
+              if (SoundTimer.ContainsKey(sound))
               {
                         float lastTimePlayed = SoundTimer[sound];
-                        float playerMoveTimeMax = 0.05f;
+                        float playerMoveTimeMax = 2.75f; // change this variable based on the sound. I recomend puttting the almost the full length of the sfx
                         if (lastTimePlayed + playerMoveTimeMax < Time.time)
                         {
                             SoundTimer[sound] = Time.time;
                             return true;
-                            
                         }
-                        else
+                        else 
                         {
                             return false;
                         }
               }
-              break;
-              return true;
-        }     
-        
-        
+              else
+              {
+                  return false;
+              }
+          case Sound.Helper1Move:
+              if (SoundTimer.ContainsKey(sound))
+              {
+                  float lastTimePlayed = SoundTimer[sound];
+                  float helperMoveTimeMax = 0.15f;
+                  if (lastTimePlayed + helperMoveTimeMax < Time.time)
+                  {
+                      SoundTimer[sound] = Time.time;
+                      return true;
+                  }
+                  else 
+                  {
+                      return false;
+                  }
+              }
+              else
+              {
+                  return false;
+              }
+        }
     }
+
+    /*public static void AddButtonSounds(this Button button)
+    {
+        // need to add an method to add sounds to the buttons 
+    }*/
     public void StopSound()
     {
         audioSource.Stop();
