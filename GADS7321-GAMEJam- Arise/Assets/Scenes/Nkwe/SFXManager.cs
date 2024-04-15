@@ -98,7 +98,7 @@ public class SFXManager : MonoBehaviour
         }
     }
 
-    private static  bool CanPlaySound(Sound sound)
+    private static  bool CanPlaySound(Sound sound)// Thsi is to make sure certain songs dont play too much 
     { 
         switch (sound)
         {
@@ -108,8 +108,20 @@ public class SFXManager : MonoBehaviour
               if (SoundTimer.ContainsKey(Sound.PlayerMove))
               {
                         float lastTimePlayed = SoundTimer[sound];
+                        float playerMoveTimeMax = 0.05f;
+                        if (lastTimePlayed + playerMoveTimeMax < Time.time)
+                        {
+                            SoundTimer[sound] = Time.time;
+                            return true;
+                            
+                        }
+                        else
+                        {
+                            return false;
+                        }
               }
               break;
+              return true;
         }     
         
         
