@@ -3,11 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEngine.ParticleSystem;
 
 public class LightingController : MonoBehaviour
 {
     private GameObject light;
     private GameObject player;
+
+    private ParticleSystem particles;
+
     private float lightDuration = 15f;
     //private float lightRange = 2f;
     private bool playerInRange;
@@ -18,65 +22,30 @@ public class LightingController : MonoBehaviour
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        particles = transform.GetChild(0).gameObject.GetComponent<ParticleSystem>();
         playerInRange = false;
         light = this.gameObject;
+        particles.Stop();
     }
 
     private void Update()
     {
         //float distanceBetween = Vector3.Distance(player.transform.position, light.transform.position);
 
-        //if (distanceBetween <= lightRange) //If within range
-        //{
-        //    lightDuration = 15f;
-        //    playerInRange = true;
-        //    canSummon = true;
-
-        //    light.GetComponent<Light>().enabled = true;
-        //    light.GetComponent<Light>().intensity = 2f;
-        //}
-        //else if (distanceBetween > lightRange) //If outside range
-        //{
-        //    playerInRange = false;
-        //}
-
-        if (!playerInRange)
+        if (light.GetComponent<Light>().intensity > 0.5F)
+        {
+            particles.Play();
+        }
+            if (!playerInRange)
         {
             lightDuration -= Time.deltaTime;
 
             //Adjusting the brightness/intensity of light sources according to time:
             light.GetComponent<Light>().intensity = lightDuration * 0.1538461538461538F;
 
-            //if (lightDuration < 13)
-            //{
-            //    light.GetComponent<Light>().intensity = 1.8f;
-            //}
-            //if (lightDuration < 11)
-            //{
-            //    light.GetComponent<Light>().intensity = 1.6f;
-            //}
-            //if (lightDuration < 9)
-            //{
-            //    light.GetComponent<Light>().intensity = 1.4f;
-            //}
-            //if (lightDuration < 7)
-            //{
-            //    light.GetComponent<Light>().intensity = 1.2f;
-            //}
-            //if (lightDuration < 5)
-            //{
-            //    light.GetComponent<Light>().intensity = 1f;
-            //}
-            //if (lightDuration < 3)
-            //{
-            //    light.GetComponent<Light>().intensity = 0.6f;
-            //}
-            //if (lightDuration < 1)
-            //{
-            //    light.GetComponent<Light>().intensity = 0.3f;
-            //}
             if (light.GetComponent<Light>().intensity < 0.5F)
             {
+                particles.Stop();
                 light.GetComponent<Light>().enabled = false;
             }
         }
