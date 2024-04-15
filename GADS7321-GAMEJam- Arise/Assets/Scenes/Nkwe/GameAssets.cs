@@ -10,17 +10,18 @@ public class GameAssets : MonoBehaviour
  {
   get
   {
-   if (_i == null) _i = (Instantiate(Resources.Load("GameAssets")) as GameObject).GetComponent<GameAssets>();
-  return _i; 
+   if (_i == null) 
+    _i = (Instantiate(Resources.Load("Game Assets")) as GameObject).GetComponent<GameAssets>();
+   return _i; 
   }
   
  }
  // Expose a List of AudioClips in the Unity inspector
- public List<AudioList> soundclips;
+ public List<AudioList> soundClip;
  [System.Serializable]
 public class AudioList
  {
   public SFXManager.Sound sound;
-  public AudioClip audioclip;
+  public AudioClip audioClip;
  }
 }

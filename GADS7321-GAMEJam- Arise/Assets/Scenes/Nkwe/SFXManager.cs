@@ -19,6 +19,8 @@ public class SFXManager : MonoBehaviour
         Helper1Ability,
         Helper2Move,
         Helper2Ability,
+        ButtonHover,
+        ButtonClick
         
     }
     // Singleton instance
@@ -29,6 +31,8 @@ public class SFXManager : MonoBehaviour
 
     // HashMap to store AudioClips
     private Dictionary<Sound, AudioClip> soundMap = new Dictionary<Sound, AudioClip>();
+
+    public static Dictionary<Sound, float> SoundTimer;
 
     // Expose a List of AudioClips in the Unity inspector
    // public List<AudioClip> soundClips ;
@@ -48,7 +52,6 @@ public class SFXManager : MonoBehaviour
                     instance = obj.AddComponent<SFXManager>();
                 }
             }
-
             return instance;
         }
     }
@@ -64,9 +67,11 @@ public class SFXManager : MonoBehaviour
             audioSource = gameObject.GetComponent<AudioSource>();
 
             // Populate the soundMap using the provided soundClips List in game assets 
-            foreach (GameAssets.AudioList soundClip in GameAssets.i.soundclips)
+            foreach (GameAssets.AudioList soundClip in GameAssets.i.soundClip)
             {
-                soundMap.Add(soundClip.sound, soundClip.audioclip);
+              
+                soundMap.Add(soundClip.sound, soundClip.audioClip);
+                Debug.Log("song " + soundClip.sound.ToString() );
             }
         }
         else
@@ -77,17 +82,37 @@ public class SFXManager : MonoBehaviour
     }
 
     // Public method to play sound by name
-    public void PlaySound(string soundName, float duration, bool loop)
+    public void PlaySound(Sound sound)
     {
-        if (soundMap.ContainsKey(soundName))
+        //CanPlaySound(sound)
+        if (CanPlaySound(sound) )
         {
-            audioSource.PlayOneShot(soundMap[soundName]);
-            audioSource.loop = loop;// allows sounds to loop 
+                    if (soundMap.ContainsKey(sound))
+                    {
+                        audioSource.PlayOneShot(soundMap[sound]);
+                    }
+                    else
+                    {
+                        Debug.LogWarning("Sound not found: " + sound.ToString() );
+                    }
         }
-        else
+    }
+
+    private static  bool CanPlaySound(Sound sound)
+    { 
+        switch (sound)
         {
-            Debug.LogWarning("Sound not found: " + soundName);
-        }
+          default:
+              return true;
+          case Sound.PlayerMove:
+              if (SoundTimer.ContainsKey(Sound.PlayerMove))
+              {
+                        float lastTimePlayed = SoundTimer[sound];
+              }
+              break;
+        }     
+        
+        
     }
     public void StopSound()
     {
