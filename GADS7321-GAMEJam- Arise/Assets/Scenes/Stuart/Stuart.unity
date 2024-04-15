@@ -2411,9 +2411,13 @@ PrefabInstance:
       propertyPath: emitterVelocityMode
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2209818672240916706, guid: 704bde577ff1e7143b9d90993184162d, type: 3}
+      propertyPath: CollisionModule.collidesWith.m_Bits
+      value: 439
+      objectReference: {fileID: 0}
     - target: {fileID: 5555476463706664097, guid: 704bde577ff1e7143b9d90993184162d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.25
+      value: -0.332
       objectReference: {fileID: 0}
     - target: {fileID: 5644610415918276975, guid: 704bde577ff1e7143b9d90993184162d, type: 3}
       propertyPath: m_LocalPosition.x
