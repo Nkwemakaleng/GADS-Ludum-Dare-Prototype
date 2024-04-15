@@ -15,6 +15,7 @@ TagManager:
   - Hazard
   - Campfire
   - Exit
+  - Light
   layers:
   - Default
   - TransparentFX
