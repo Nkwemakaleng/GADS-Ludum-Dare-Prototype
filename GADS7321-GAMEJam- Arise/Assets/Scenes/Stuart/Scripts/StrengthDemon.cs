@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using UnityEngine;
 
 public class StrengthDemon : MonoBehaviour
@@ -53,7 +54,7 @@ public class StrengthDemon : MonoBehaviour
         float moveInput = Input.GetAxisRaw("Horizontal");
         if (dm.activeController)
         {
-            demonRB.velocity = new Vector3(moveInput * moveSpeed, demonRB.velocity.y, 0);
+            demonRB.velocity = new Vector3(moveInput * moveSpeed, demonRB.velocity.y, demonRB.velocity.z);
 
             //PLAYER MOVEMENT
             //COYOTE JUMP
@@ -84,6 +85,8 @@ public class StrengthDemon : MonoBehaviour
         else {
             demonRB.velocity = Vector3.zero;
         }
+
+        
     }
 
     private void FixedUpdate()
@@ -113,6 +116,7 @@ public class StrengthDemon : MonoBehaviour
         {
             demonRB.velocity += Vector3.up * Physics.gravity.y * fallMultiplier * Time.deltaTime;
         }
+
     }
 
     private void ResetJump()
@@ -169,6 +173,19 @@ public class StrengthDemon : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter(Collider collision)
+    {
+        //DESTROYS DEMON IF NOT IN LIT LIGHT
+        if (collision.gameObject.CompareTag("Light") && !collision.gameObject.GetComponent<Light>().enabled)
+        {
+            if (transform.GetChild(1) != null)
+            {
+                transform.GetChild(1).parent = dm.gameObject.transform;
+            }
+            Destroy(this.gameObject);
+        }
+    }
+
     private void OnTriggerStay(Collider collision)
     {
         //HEAVY OBJECT PICKUP INTERACT
@@ -187,6 +204,14 @@ public class StrengthDemon : MonoBehaviour
 
             platStored = true;
         }
+
+        //DESTROYS DEMON IF NOT IN LIT LIGHT
+        if (collision.gameObject.CompareTag("Light") && !collision.gameObject.GetComponent<Light>().enabled) {
+            try {
+                transform.GetChild(1).parent = dm.gameObject.transform;
+            } catch { }
+            Destroy(this.gameObject);
+        }
     }
 
     void OnCollisionExit(Collision collision)
@@ -204,5 +229,6 @@ public class StrengthDemon : MonoBehaviour
             currentRock = null;
             isGrounded = false;
         }
+
     }
 }

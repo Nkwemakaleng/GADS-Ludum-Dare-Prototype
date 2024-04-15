@@ -402,6 +402,7 @@ MonoBehaviour:
   demonIndex: 0
   demonActive: 0
   activeController: 0
+  isInLight: 0
 --- !u!65 &6757214007676976280
 BoxCollider:
   m_ObjectHideFlags: 0

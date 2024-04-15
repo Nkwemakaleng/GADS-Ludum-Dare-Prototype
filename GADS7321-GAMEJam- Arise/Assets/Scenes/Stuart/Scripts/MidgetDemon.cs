@@ -119,9 +119,35 @@ public class MidgetDemon : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter(Collider collision)
+    {
+        //DESTROYS DEMON IF NOT IN LIT LIGHT
+        if (collision.gameObject.CompareTag("Light") && !collision.gameObject.GetComponent<Light>().enabled)
+        {
+            if (transform.GetChild(1) != null)
+            {
+                transform.GetChild(1).parent = dm.gameObject.transform;
+            }
+            Destroy(this.gameObject);
+        }
+    }
+
     private void OnTriggerStay(Collider collision)
     {
-
+        //DESTROYS DEMON IF NOT IN LIT LIGHT
+        if (collision.gameObject.CompareTag("Light") && !collision.gameObject.GetComponent<Light>().enabled)
+        {
+            //DESTROYS DEMON IF NOT IN LIT LIGHT
+            if (collision.gameObject.CompareTag("Light") && !collision.gameObject.GetComponent<Light>().enabled)
+            {
+                try
+                {
+                    transform.GetChild(1).parent = dm.gameObject.transform;
+                }
+                catch { }
+                Destroy(this.gameObject);
+            }
+            }
     }
 
     void OnCollisionExit(Collision collision)

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -39,6 +40,7 @@ public class DemonManager : MonoBehaviour
     public bool demonActive = false;       //Whether demon is summoned or not
     private bool isSpawned = false;        //Checks whether demon has been spawned
     public bool activeController = true;  //Controls whether player or demon is being controlled (false - player, true - demon)
+    public bool isInLight = false;
 
     void Awake()
     {
@@ -52,9 +54,10 @@ public class DemonManager : MonoBehaviour
         //CAMERA CONTROL
         if (isSpawned && activeController)
         {
-            cam.transform.parent = activeDemon.transform;
-            cam.transform.localPosition = camPos;
-            
+            if (activeDemon != null) {
+                cam.transform.parent = activeDemon.transform;
+                cam.transform.localPosition = camPos;
+            }  
         }
         else {
             cam.transform.parent = this.transform;
@@ -111,7 +114,7 @@ public class DemonManager : MonoBehaviour
         //CONTROLS DEMON SPAWN + DESPAWN
         if (demonActive)
         {
-            if (!isSpawned)
+            if (!isSpawned && isInLight)
             {
                 spawnDemon();
                 isSpawned = true;
@@ -120,6 +123,7 @@ public class DemonManager : MonoBehaviour
         else
         {
             deleteDemon();
+            demonActive = false;
         }
 
         //PLAYER MOVEMENT
@@ -153,6 +157,14 @@ public class DemonManager : MonoBehaviour
         }
         else {
             playerRB.velocity = Vector3.zero;
+        }
+
+        //IF DEMON IS DESTORYED
+        if (activeDemon.IsDestroyed()) {
+            cam.transform.parent = this.gameObject.transform;
+            demonActive = false;
+            activeController = false;
+            isSpawned = false;
         }
     }
     private void FixedUpdate()
@@ -213,6 +225,20 @@ public class DemonManager : MonoBehaviour
         }
     }
 
+    //CHECKS IF IN LIT RANGE FOR SPAWNING DEMON
+    private void OnTriggerStay(UnityEngine.Collider collision)
+    {
+        if (collision.gameObject.CompareTag("Light") && collision.gameObject.GetComponent<Light>().enabled)
+        {
+            isInLight = true;
+        }
+
+        if (!collision.gameObject.CompareTag("Light"))
+        {
+            isInLight = false;
+        }
+    }
+
     private void OnCollisionExit(Collision collision)
     {
         if (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("Heavy_Lift") || collision.gameObject.CompareTag("Heavy_Push"))
@@ -227,7 +253,7 @@ public class DemonManager : MonoBehaviour
 
     //INSTANTIATES DEMON IN FRONT OF PLAYER
     public void spawnDemon() {
-        activeDemon = Instantiate(demons[demonIndex], new Vector3(transform.position.x + 1F, transform.position.y, 0F), Quaternion.identity);
+        activeDemon = Instantiate(demons[demonIndex], new Vector3(transform.position.x, transform.position.y, 0F), Quaternion.identity);
     }
 
     //DELETES DEMON + REVERTS CONTROL VARIABLES
