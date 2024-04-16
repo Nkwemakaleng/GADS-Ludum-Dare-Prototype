@@ -20,5 +20,6 @@ public class AnimationController : MonoBehaviour
     void Update()
     {
         SFXManager.Instance.PlaySound(SFXManager.Sound.PlayerMove);
+        
     }
 }

@@ -4,8 +4,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
-
 
 public class SFXManager : MonoBehaviour
 {
@@ -36,6 +36,7 @@ public class SFXManager : MonoBehaviour
 
     public static void Initialize()
     {
+        // add any sound that will play like cancer ie moving sounds or sounds that play in quick succession 
         SoundTimer = new Dictionary<Sound, float>();
         SoundTimer[Sound.PlayerMove] = 0f;
         SoundTimer[Sound.Helper1Move] = 0f;
@@ -104,7 +105,7 @@ public class SFXManager : MonoBehaviour
         }
     }
 
-    private static  bool CanPlaySound(Sound sound)// Thsi is to make sure certain songs dont play too much 
+    /*private static  bool CanPlaySound(Sound sound)// This is to make sure certain songs dont play too much 
     { 
         switch (sound)
         {
@@ -114,7 +115,7 @@ public class SFXManager : MonoBehaviour
               if (SoundTimer.ContainsKey(sound))
               {
                         float lastTimePlayed = SoundTimer[sound];
-                        float playerMoveTimeMax = 2.75f; // change this variable based on the sound. I recomend puttting the almost the full length of the sfx
+                        float playerMoveTimeMax = 2.75f; // change this variable based on the sound. I recommend putting the almost the full length of the sfx
                         if (lastTimePlayed + playerMoveTimeMax < Time.time)
                         {
                             SoundTimer[sound] = Time.time;
@@ -149,12 +150,71 @@ public class SFXManager : MonoBehaviour
                   return false;
               }
         }
+    }*/
+
+    private static bool CanPlaySound(Sound sound)
+    {
+        // Dictionary to store maximum time intervals for each sound type
+        Dictionary<Sound, float> maxTimeIntervals = new Dictionary<Sound, float>
+        {
+            { Sound.PlayerMove, 2.85f }, // Adjust these values based on the sound types
+            { Sound.Helper1Move, 0.15f },
+            { Sound.Helper2Move, 0.15f }
+            
+            // Add more sound types and their corresponding max time intervals if needed
+        };
+
+        // Check if the sound exists in the dictionary and has a maximum time interval
+        if (maxTimeIntervals.ContainsKey(sound))
+        {
+            float maxTime = maxTimeIntervals[sound];
+
+            if (SoundTimer.ContainsKey(sound))
+            {
+                float lastTimePlayed = SoundTimer[sound];
+
+                // Check if enough time has passed since the last play
+                if (lastTimePlayed + maxTime < Time.time)
+                {
+                    SoundTimer[sound] = Time.time;
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                // If the sound timer doesn't contain the sound, allow playing the sound
+                SoundTimer[sound] = Time.time;
+                return true;
+            }
+        }
+
+        // If the sound type is not defined in the maxTimeIntervals dictionary, allow playing the sound
+        return true;
+    }
+    public void SetVolume(float volume)
+    {
+        // Clamp volume between 0 and 1
+        volume = Mathf.Clamp01(volume);
+
+        // Set the volume of the AudioSource component
+        audioSource.volume = volume;
     }
 
-    /*public static void AddButtonSounds(this Button button)
+    // Method to play button hover sound
+    public void ButtonClick()
     {
-        // need to add an method to add sounds to the buttons 
-    }*/
+        SFXManager.Instance.PlaySound(Sound.ButtonClick);
+    }
+
+    public void ButtonHover()
+    {
+        SFXManager.Instance.PlaySound(Sound.ButtonHover);
+    }
+
     public void StopSound()
     {
         audioSource.Stop();
