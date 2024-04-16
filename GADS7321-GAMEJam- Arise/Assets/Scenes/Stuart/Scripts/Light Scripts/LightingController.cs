@@ -7,51 +7,47 @@ using static UnityEngine.ParticleSystem;
 
 public class LightingController : MonoBehaviour
 {
-    private GameObject light;
+    private Light light;
     private GameObject player;
-
     private ParticleSystem particles;
 
     private float lightDuration = 15f;
-    //private float lightRange = 2f;
+    private float maxLightIntensity = 2f;
+    private float minLightIntensity = 0.5f;
     private bool playerInRange;
     
-    private static bool canSummon;
-    private static bool canDemonMove;
-
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        particles = transform.GetChild(0).gameObject.GetComponent<ParticleSystem>();
+        particles = GetComponentInChildren<ParticleSystem>();
         playerInRange = false;
-        light = this.gameObject;
+        light = GetComponent<Light>();
+        light.intensity = 0f;
         particles.Stop();
     }
 
     private void Update()
     {
-        //float distanceBetween = Vector3.Distance(player.transform.position, light.transform.position);
-
-        if (light.GetComponent<Light>().intensity > 0.5F)
+        if (playerInRange)
         {
-            particles.Play();
-        }
-            if (!playerInRange)
-        {
-            lightDuration -= Time.deltaTime;
+            lightDuration = 15f;
+            light.intensity = Mathf.Lerp(light.intensity, maxLightIntensity, Time.deltaTime * 2f);
 
-            //Adjusting the brightness/intensity of light sources according to time:
-            light.GetComponent<Light>().intensity = lightDuration * 0.1538461538461538F;
-
-            if (light.GetComponent<Light>().intensity < 0.5F)
+            if (!particles.isPlaying)
             {
-                particles.Stop();
-                light.GetComponent<Light>().enabled = false;
+                particles.Play();
             }
         }
-        else {
-            light.GetComponent<Light>().intensity = 2f;
-            lightDuration = 15f;
+        else
+        {
+            lightDuration -= Time.deltaTime;
+            light.intensity = Mathf.Lerp(light.intensity, 0f, Time.deltaTime * 0.5f);
+
+            if (light.intensity <= 0.01f)
+            {
+                light.intensity = 0f;
+                particles.Stop();
+            }
         }
     }
 
