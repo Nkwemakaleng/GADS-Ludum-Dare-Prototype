@@ -10,6 +10,11 @@ public class DemonManager : MonoBehaviour
     //CAMERA
     [SerializeField] Camera cam;
     Vector3 camPos;
+    
+    //PARTICLES
+    public ParticleSystem swapParticles;
+    private float particleSpeed = 1f;
+    private Transform particleTarget;
 
     //PLAYER MOVEMENT VARIABLES
     private float moveSpeed = 5F;
@@ -46,6 +51,7 @@ public class DemonManager : MonoBehaviour
     {
         playerRB = GetComponent<Rigidbody>();      //PLAYER MODEL MUST BE 1st CHILD
         camPos = cam.transform.position;
+        
     }
 
     //DEMON + PLAYER CONTROL
@@ -79,6 +85,20 @@ public class DemonManager : MonoBehaviour
         {
             activeController = !activeController;
             moveInput = 0;
+
+            if (activeController) //If demon is active
+            {
+                particleTarget = playerRB.transform;
+
+                swapParticles.transform.position = Vector3.MoveTowards(activeDemon.transform.position, particleTarget.position, particleSpeed);
+            }
+            else if (!activeController) //If player is active
+            {
+                particleTarget = activeDemon.transform;
+                
+                swapParticles.transform.position = Vector3.MoveTowards(playerRB.transform.position, particleTarget.position, particleSpeed);
+            }
+            
         }
 
         //CHANGES WHICH DEMON IS SELECTED - CHANGE TO WORK WITH ARRAY
