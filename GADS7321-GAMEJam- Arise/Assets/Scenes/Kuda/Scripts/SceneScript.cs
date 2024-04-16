@@ -8,10 +8,7 @@ public class SceneScript : MonoBehaviour
 {
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            SceneManager.LoadScene("KudaMainMenu");
-        }
+       
     }
     #region MainMenu
     public void Play()
@@ -22,6 +19,10 @@ public class SceneScript : MonoBehaviour
     public void Settings()
     {
         SceneManager.LoadScene("KudaSettings");
+    }
+    public void Credits()
+    {
+        SceneManager.LoadScene("KudaCredits");
     }
     public void MainMenu()
     {

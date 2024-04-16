@@ -358,7 +358,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 783734968}
         m_TargetAssemblyTypeName: SceneScript, Assembly-CSharp
-        m_MethodName: Settings
+        m_MethodName: Credits
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
