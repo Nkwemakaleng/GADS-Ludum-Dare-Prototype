@@ -49,6 +49,7 @@ public class DemonManager : MonoBehaviour
 
     void Awake()
     {
+        SFXManager.Initialize();
         playerRB = GetComponent<Rigidbody>();      //PLAYER MODEL MUST BE 1st CHILD
         camPos = cam.transform.position;
         
@@ -76,6 +77,8 @@ public class DemonManager : MonoBehaviour
         //WHETHER DEMON IS ACTIVE - ACTIVATING DEMON IS LEFT CLICK
         if (Input.GetMouseButtonDown(0))
         {
+            SFXManager.Instance.PlaySound(SFXManager.Sound.HelperSummon);
+            
             demonActive = !demonActive;
             moveInput = 0;
         }
@@ -174,9 +177,29 @@ public class DemonManager : MonoBehaviour
         if (!activeController)
         {
             playerRB.velocity = new Vector3(moveInput * moveSpeed, playerRB.velocity.y, 0);
+
+            //SOUND FOR PLAYER MOVING
+            if (playerRB.velocity.x > 0)
+            {
+                SFXManager.audioSource.UnPause();
+                SFXManager.Instance.PlaySound(SFXManager.Sound.PlayerMove);
+                
+                //SFXManager.audioSource.Play();
+                
+            }
+            else
+            {
+                if (SFXManager.audioSource.isPlaying)
+                {
+                    SFXManager.audioSource.Pause();
+                }
+                SFXManager.audioSource.Stop();
+            }
         }
         else {
             playerRB.velocity = Vector3.zero;
+            
+            //SFXManager.Instance.StopSound();
         }
 
         //IF DEMON IS DESTORYED
@@ -224,6 +247,8 @@ public class DemonManager : MonoBehaviour
         //RESETS SCENE IF HIT HAZARD
         if (collision.gameObject.CompareTag("Hazard"))
         {
+            SFXManager.Instance.PlaySound(SFXManager.Sound.PlayerHit);
+            
             Debug.Log("You died bruh");
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }

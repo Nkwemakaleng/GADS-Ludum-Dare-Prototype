@@ -5,16 +5,16 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 638487918980536547
-    m_Hash: 90789624
+      ticks: 638489401752042378
+    m_Hash: 3692291513
   m_LockFileStatus:
     m_FilePath: D:/LudumDare/GADS-Ludum-Dare-Prototype/GADS7321-GAMEJam- Arise/Packages/packages-lock.json
     m_PathExists: 1
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 638487918981840373
-    m_Hash: 3931267893
+      ticks: 638489401752052346
+    m_Hash: 3379909478
 m_EmbeddedPackageManifests:
   m_ManifestsStatus: {}
 m_LocalPackages:

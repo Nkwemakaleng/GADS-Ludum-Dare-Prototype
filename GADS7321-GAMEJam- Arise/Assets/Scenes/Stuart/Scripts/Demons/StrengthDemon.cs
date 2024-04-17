@@ -56,6 +56,11 @@ public class StrengthDemon : MonoBehaviour
         {
             demonRB.velocity = new Vector3(moveInput * moveSpeed, demonRB.velocity.y, demonRB.velocity.z);
 
+            if (demonRB.velocity.x > 0)
+            {
+                SFXManager.Instance.PlaySound(SFXManager.Sound.Helper1Move);
+            }
+
             //PLAYER MOVEMENT
             //COYOTE JUMP
             if (isGrounded)
