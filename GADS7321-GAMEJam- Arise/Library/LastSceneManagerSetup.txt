@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/Scenes/Kuda/Scenes/KudaPlay.unity
+- path: Assets/Scenes/Kuda/Scenes/KudaMainMenu.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0

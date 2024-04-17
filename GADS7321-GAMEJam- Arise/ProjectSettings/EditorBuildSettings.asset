@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Kuda/Scenes/KudaCredits.unity
     guid: e4fc2602b87264d43936fab196afcb5e
+  - enabled: 1
+    path: Assets/Scenes/Kuda/Scenes/KudaSettings.unity
+    guid: 7d294cc4ff957444e8006cb28962a210
   m_configObjects: {}
