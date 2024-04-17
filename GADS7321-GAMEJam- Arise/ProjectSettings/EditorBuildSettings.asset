@@ -4,5 +4,17 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Stuart/UI (Kuda)/Kuda/Scenes/KudaMainMenu.unity
+    guid: a6163715e90c81140807cc28edbdb98c
+  - enabled: 1
+    path: Assets/Scenes/Stuart/Stuart.unity
+    guid: a7102c3f1ceb43b49abf5866d88d895b
+  - enabled: 1
+    path: Assets/Scenes/Stuart/UI (Kuda)/Kuda/Scenes/KudaSettings.unity
+    guid: 7d294cc4ff957444e8006cb28962a210
+  - enabled: 1
+    path: Assets/Scenes/Stuart/UI (Kuda)/Kuda/Scenes/KudaCredits.unity
+    guid: e4fc2602b87264d43936fab196afcb5e
   m_configObjects: {}

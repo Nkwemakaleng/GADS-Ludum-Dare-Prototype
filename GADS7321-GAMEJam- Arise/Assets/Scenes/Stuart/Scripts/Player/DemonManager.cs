@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -7,6 +8,8 @@ using UnityEngine.SceneManagement;
 
 public class DemonManager : MonoBehaviour
 {
+    public UIManager uiManagerInstance;
+    
     //CAMERA
     [SerializeField] Camera cam;
     Vector3 camPos;
@@ -50,8 +53,14 @@ public class DemonManager : MonoBehaviour
     void Awake()
     {
         SFXManager.Initialize();
+        
         playerRB = GetComponent<Rigidbody>();      //PLAYER MODEL MUST BE 1st CHILD
         camPos = cam.transform.position;
+        
+    }
+
+    private void Start()
+    {
         
     }
 
@@ -189,11 +198,11 @@ public class DemonManager : MonoBehaviour
             }
             else
             {
-                if (SFXManager.audioSource.isPlaying)
-                {
-                    SFXManager.audioSource.Pause();
-                }
-                SFXManager.audioSource.Stop();
+                // if (SFXManager.audioSource.isPlaying)
+                // {
+                //     SFXManager.audioSource.Pause();
+                // }
+                // SFXManager.audioSource.Stop();
             }
         }
         else {
@@ -248,9 +257,9 @@ public class DemonManager : MonoBehaviour
         if (collision.gameObject.CompareTag("Hazard"))
         {
             SFXManager.Instance.PlaySound(SFXManager.Sound.PlayerHit);
-            
-            Debug.Log("You died bruh");
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            Debug.Log("You died");
+            uiManagerInstance.GameOver();
+            //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 
         //NEEDED IN SINGLETON
